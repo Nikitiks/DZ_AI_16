@@ -1,5 +1,6 @@
 import cv2
 import sys
+import os
 from PIL import Image, ExifTags
 
 # image_path = "./images/image.png"
@@ -90,12 +91,18 @@ def is_correct_image(image):
     if channels != 3:
         return f"image have less canals than 3, shape = {channels}"
 
-
+dir = "./processed"
 err = is_correct_image(image3)
+
 if err is not None:
     print(err)
 else:
-    cv2.imwrite("./processed/image3_save.png", image3)
+
+    output_dir = "./processed"
+    os.makedirs(dir, exist_ok=True)
+
+    path = os.path.join(dir,"image3_save.png")
+    cv2.imwrite(path, image3)
     
 
 cv2.waitKey(0)
